@@ -1,0 +1,191 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.shell {
+  height: 100%;
+  --mat-sidenav-container-shape: 0;
+  --mat-sidenav-content-background-color: var(--mat-sys-background);
+}
+
+.sidebar {
+  width: 220px;
+  border-right: 1px solid var(--mat-sys-outline-variant);
+
+  // El contenido del sidenav va en columna para dejar al usuario abajo
+  ::ng-deep .mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__brand {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  &__section {
+    padding: 12px;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  &__nav {
+    flex: 1;
+    padding: 12px;
+
+    // Tamaño compacto como en el diseño (texto 12px, íconos 18px)
+    --mat-list-list-item-one-line-container-height: 36px;
+    --mat-list-list-item-label-text-size: 12px;
+    --mat-list-list-item-label-text-weight: 500;
+    --mat-list-list-item-label-text-color: var(--mat-sys-on-surface-variant);
+    --mat-list-list-item-leading-icon-size: 18px;
+    --mat-list-list-item-leading-icon-color: var(--mat-sys-on-surface-variant);
+    --mat-list-list-item-leading-icon-start-space: 10px;
+    --mat-list-list-item-leading-icon-end-space: 10px;
+    --mat-list-list-item-trailing-space: 10px;
+
+    // Ítem activo: fondo crema (secondary-container) y texto/ícono caramel
+    --mat-list-active-indicator-shape: 8px;
+
+    .mdc-list-item--activated {
+      --mat-list-list-item-label-text-color: var(--mat-sys-primary);
+      --mat-list-list-item-leading-icon-color: var(--mat-sys-primary);
+      --mat-list-list-item-hover-label-text-color: var(--mat-sys-primary);
+      --mat-list-list-item-focus-label-text-color: var(--mat-sys-primary);
+    }
+  }
+
+  &__user {
+    padding: 12px;
+    border-top: 1px solid var(--mat-sys-outline-variant);
+  }
+}
+
+.workspace {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--mat-sys-surface-container-high);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gb-text-strong);
+
+  &__tile {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    font-size: 9px;
+    background: var(--mat-sys-primary);
+  }
+
+  &__name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.nav-badge {
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--mat-sys-surface-container-low);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--mat-sys-surface-container-high);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__role {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gb-text-subtle);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: var(--mat-sys-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  &__spacer {
+    flex: 1;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gb-text-subtle);
+
+  &__branch {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  &__current {
+    font-weight: 500;
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+.branch-button {
+  font-size: 12px;
+  background: var(--mat-sys-surface-container-high);
+}
+
+.page {
+  flex: 1;
+  padding: 20px 24px;
+}
+
+@media (max-width: 600px) {
+  .breadcrumb {
+    display: none;
+  }
+  .page,
+  .topbar {
+    padding-inline: 16px;
+  }
+}

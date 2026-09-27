@@ -1,0 +1,15 @@
+.empty {
+  margin-top: 20px;
+  padding: 48px 24px;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+
+  a {
+    margin-top: 12px;
+  }
+}

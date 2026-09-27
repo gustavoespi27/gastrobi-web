@@ -1,0 +1,57 @@
+<mat-card appearance="outlined" class="gb-card alerts">
+  <div class="alerts__head">
+    <h2 class="gb-card-title">Alertas de reabastecimiento</h2>
+    <span class="gb-badge gb-badge--warning">{{ criticalCount() }} críticos</span>
+  </div>
+
+  <table mat-table [dataSource]="alerts()" class="alerts__table">
+    <ng-container matColumnDef="item">
+      <th mat-header-cell *matHeaderCellDef>Ítem</th>
+      <td mat-cell *matCellDef="let alert">
+        <span class="item">
+          <span [class]="'dot dot--' + alert.urgency"></span>
+          <span class="item__name">{{ alert.name }}</span>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef class="num">Stock</th>
+      <td
+        mat-cell
+        *matCellDef="let alert"
+        class="num"
+        [class.critical]="alert.urgency === 'critical'"
+      >
+        {{ alert.stock | number: '1.0-1' }}{{ alert.unit }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lead">
+      <th mat-header-cell *matHeaderCellDef class="num">Plazo</th>
+      <td mat-cell *matCellDef="let alert" class="num subtle">{{ alert.leadTimeDays }}d</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef><span class="cdk-visually-hidden">Acción</span></th>
+      <td mat-cell *matCellDef="let alert" class="action">
+        <button
+          matButton="tonal"
+          class="order-button"
+          [disabled]="pendingId() === alert.ingredientId"
+          (click)="createOrder.emit(alert)"
+        >
+          Generar OC
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+
+  <a matButton="outlined" routerLink="/inventario" class="gb-button-neutral alerts__all">
+    Ver todo el inventario
+    <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+  </a>
+</mat-card>

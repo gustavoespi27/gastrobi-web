@@ -1,0 +1,15 @@
+<mat-card appearance="outlined" class="gb-card kpi">
+  <div class="kpi__head">
+    <span class="kpi__label">{{ label() }}</span>
+    @if (badge()) {
+      <span [class]="'gb-badge gb-badge--' + tone()">
+        @if (badgeIcon(); as icon) {
+          <mat-icon>{{ icon }}</mat-icon>
+        }
+        {{ badge() }}
+      </span>
+    }
+  </div>
+  <p class="kpi__value">{{ value() }}</p>
+  <p class="gb-muted">{{ caption() }}</p>
+</mat-card>

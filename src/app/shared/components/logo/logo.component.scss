@@ -1,0 +1,48 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--mat-sys-on-surface);
+}
+
+:host(.lg) {
+  flex-direction: column;
+  gap: 16px;
+  font-size: 20px;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--mat-sys-inverse-surface);
+}
+
+:host(.lg) .mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+
+svg {
+  width: 60%;
+  height: 60%;
+}
+
+.word {
+  letter-spacing: -0.01em;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.accent {
+  margin-left: 2px;
+  font-weight: 300;
+  color: var(--mat-sys-primary);
+}

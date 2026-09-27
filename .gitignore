@@ -1,0 +1,26 @@
+# Compilación
+/dist
+/tmp
+/out-tsc
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs
+.idea/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Angular / tests
+/.angular/cache
+.sass-cache/
+/coverage
+__screenshots__/
+
+# Sistema
+.DS_Store
+Thumbs.db

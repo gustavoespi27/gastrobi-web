@@ -1,0 +1,96 @@
+<main class="login">
+  <div class="login__inner">
+    <header class="login__brand">
+      <gb-logo size="lg" />
+      <p class="login__tagline">Inteligencia restaurantera</p>
+    </header>
+
+    <mat-card appearance="outlined" class="login__card">
+      @if (loading()) {
+        <mat-progress-bar mode="indeterminate" class="login__progress" />
+      }
+
+      <h1 class="login__title">Bienvenido de nuevo</h1>
+      <p class="login__subtitle">Inicia sesión en tu espacio de trabajo</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="login__form" novalidate>
+        <mat-form-field>
+          <mat-label>Correo corporativo</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="tu@restaurante.com"
+            autocomplete="username"
+          />
+          @if (form.controls.email.hasError('required')) {
+            <mat-error>Ingresa tu correo.</mat-error>
+          } @else if (form.controls.email.hasError('email')) {
+            <mat-error>El correo no es válido.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="hidePassword() ? 'password' : 'text'"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+          <button
+            matIconButton
+            matSuffix
+            type="button"
+            (click)="hidePassword.set(!hidePassword())"
+            [attr.aria-label]="hidePassword() ? 'Mostrar contraseña' : 'Ocultar contraseña'"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
+          <mat-error>Ingresa tu contraseña.</mat-error>
+        </mat-form-field>
+
+        <button matButton type="button" class="login__forgot" (click)="forgotPassword()">
+          ¿Olvidaste tu contraseña?
+        </button>
+
+        @if (error(); as message) {
+          <p class="login__error" role="alert">{{ message }}</p>
+        }
+
+        <button matButton="filled" type="submit" [disabled]="loading()">Iniciar sesión</button>
+      </form>
+
+      <div class="login__divider">
+        <mat-divider />
+        <span>o</span>
+        <mat-divider />
+      </div>
+
+      <button
+        matButton="outlined"
+        type="button"
+        class="gb-button-neutral login__workspace"
+        [matMenuTriggerFor]="workspaceMenu"
+        [disabled]="!workspaces().length"
+      >
+        <span class="gb-tile">{{ workspace()?.name?.charAt(0) }}</span>
+        <span class="login__workspace-name">{{ workspace()?.name ?? 'Cargando…' }}</span>
+        <mat-icon iconPositionEnd>expand_more</mat-icon>
+      </button>
+      <mat-menu #workspaceMenu="matMenu">
+        @for (ws of workspaces(); track ws.id) {
+          <button mat-menu-item (click)="selectWorkspace(ws)">
+            <mat-icon>{{ ws.id === workspace()?.id ? 'check' : 'storefront' }}</mat-icon>
+            <span>{{ ws.name }}</span>
+          </button>
+        }
+      </mat-menu>
+      <p class="login__hint">Cambiar espacio de trabajo</p>
+    </mat-card>
+
+    <p class="login__footer">
+      © {{ year }} GastroBI · <a href="#">Privacidad</a> · <a href="#">Términos</a>
+    </p>
+  </div>
+</main>

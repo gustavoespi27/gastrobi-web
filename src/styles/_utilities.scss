@@ -1,0 +1,100 @@
+// Clases globales reutilizables (prefijo gb-). Usar antes de crear CSS nuevo en un componente.
+
+.gb-page-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.gb-card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gb-muted {
+  margin: 0;
+  font-size: 12px;
+  color: var(--gb-text-subtle);
+}
+
+.gb-card {
+  box-shadow: var(--gb-shadow-card);
+}
+
+.gb-avatar,
+.gb-tile {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.gb-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 12px;
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.gb-tile {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font-size: 10px;
+  background: var(--mat-sys-inverse-surface);
+  color: var(--mat-sys-inverse-on-surface);
+}
+
+// Botón outlined gris (selectores, "ver todo"): <button matButton="outlined" class="gb-button-neutral">
+.gb-button-neutral {
+  --mat-button-outlined-label-text-color: var(--gb-text-strong);
+  --mat-button-outlined-outline-color: var(--mat-sys-outline-variant);
+  --mat-button-outlined-state-layer-color: var(--mat-sys-primary);
+
+  &:hover {
+    --mat-button-outlined-outline-color: var(--mat-sys-primary);
+  }
+}
+
+// Etiqueta de estado: gb-badge gb-badge--warning | danger | success | info
+.gb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+
+  .mat-icon {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+  }
+
+  &--warning {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  &--danger {
+    background: #fee2d4;
+    color: #9a3412;
+  }
+
+  &--success {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  &--info {
+    background: #e0e7ff;
+    color: #3730a3;
+  }
+}

@@ -1,0 +1,62 @@
+@use '@angular/material' as mat;
+
+// Tema Material 3 de GastroBI.
+// mat.theme genera todos los tokens --mat-sys-*; luego se pisan con la paleta exacta
+// del diseño de Figma. Todos los componentes Material leen estos tokens, así que
+// botones, inputs, menús, tablas y cards salen con los colores de marca sin CSS extra.
+// Si hay que cambiar un color de marca, se cambia AQUÍ y en ningún otro lugar.
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$orange-palette,
+        theme-type: light,
+      ),
+      typography: Inter,
+      density: -2,
+    )
+  );
+
+  // Marca (caramel)
+  --mat-sys-primary: #c26d38;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: #f4e8df;
+  --mat-sys-on-primary-container: #a85c2e;
+  --mat-sys-secondary-container: #fef3e8; // ítem activo del menú y botones tonal
+  --mat-sys-on-secondary-container: #c26d38;
+  --mat-sys-inverse-primary: #f4c17d;
+
+  // Superficies (linen / blanco)
+  --mat-sys-background: #fbf9f5;
+  --mat-sys-on-background: #292524;
+  --mat-sys-surface: #ffffff;
+  --mat-sys-on-surface: #292524;
+  --mat-sys-on-surface-variant: #78716c;
+  --mat-sys-surface-container-lowest: #ffffff;
+  --mat-sys-surface-container-low: #fdfcfa;
+  --mat-sys-surface-container: #ffffff;
+  --mat-sys-surface-container-high: #f7f4f0;
+  --mat-sys-surface-container-highest: #f0ede8;
+  --mat-sys-outline: #d6cfc6;
+  --mat-sys-outline-variant: #eae4dc;
+  --mat-sys-inverse-surface: #292524;
+  --mat-sys-inverse-on-surface: #fbf9f5;
+  --mat-sys-error: #dc2626;
+
+  // Botones con esquina de 8px en vez de píldora, como en el diseño
+  --mat-button-filled-container-shape: 8px;
+  --mat-button-outlined-container-shape: 8px;
+  --mat-button-tonal-container-shape: 8px;
+  --mat-button-text-container-shape: 8px;
+
+  // Tokens propios para lo que Material no cubre
+  --gb-text-subtle: #a8a29e;
+  --gb-text-strong: #57534e;
+  --gb-shadow-card: 0 1px 4px rgba(41, 37, 36, 0.04);
+  --gb-danger: #dc2626;
+  --gb-warning: #d97706;
+  --gb-success: #16a34a;
+}

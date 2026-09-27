@@ -1,0 +1,59 @@
+<div class="header">
+  <h1 class="gb-page-title">Dashboard</h1>
+  <p class="gb-muted header__date">{{ today | date: "EEEE, d 'de' MMMM · 'Semana' w" }}</p>
+</div>
+
+@if (state().loading && !branchLoadFailed()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (state().error || branchLoadFailed()) {
+  <mat-card appearance="outlined" class="gb-card error">
+    <p class="gb-card-title">No se pudo cargar el dashboard</p>
+    <p class="gb-muted">Revisa tu conexión o que la API esté disponible.</p>
+    <button matButton="outlined" (click)="reload()">Reintentar</button>
+  </mat-card>
+}
+
+@if (state().data; as data) {
+  <section class="kpis">
+    @for (card of kpiCards(); track card.label) {
+      <gb-kpi-card
+        [label]="card.label"
+        [value]="card.value"
+        [caption]="card.caption"
+        [badge]="card.badge"
+        [badgeIcon]="card.badgeIcon"
+        [tone]="card.tone"
+      />
+    }
+  </section>
+
+  <section class="main-grid">
+    <mat-card appearance="outlined" class="gb-card chart-card">
+      <div class="chart-card__head">
+        <div>
+          <h2 class="gb-card-title">Ventas históricas vs. demanda predicha por ML</h2>
+          <p class="gb-muted">Línea punteada = pronóstico 7 días</p>
+        </div>
+        <div class="legend">
+          <span class="legend__item">
+            <span class="legend__line"></span>
+            Real
+          </span>
+          <span class="legend__item">
+            <span class="legend__line legend__line--dashed"></span>
+            Pronóstico
+          </span>
+        </div>
+      </div>
+      <gb-sales-chart [forecast]="data.forecast" />
+    </mat-card>
+
+    <gb-stock-alerts
+      [alerts]="data.alerts"
+      [pendingId]="pendingOrderId()"
+      (createOrder)="createOrder($event)"
+    />
+  </section>
+}

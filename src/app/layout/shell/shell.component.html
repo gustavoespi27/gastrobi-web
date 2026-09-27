@@ -1,0 +1,100 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    #sidenav
+    class="sidebar"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="!isHandset()"
+  >
+    <div class="sidebar__brand">
+      <gb-logo />
+    </div>
+
+    <div class="sidebar__section">
+      <div class="workspace">
+        <span class="gb-tile workspace__tile">{{ auth.workspace()?.name?.charAt(0) }}</span>
+        <span class="workspace__name">{{ auth.workspace()?.name }}</span>
+      </div>
+    </div>
+
+    <mat-nav-list class="sidebar__nav">
+      @for (item of navItems; track item.path) {
+        <a
+          mat-list-item
+          [routerLink]="item.path"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [activated]="rla.isActive"
+          (click)="closeOnHandset(sidenav)"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+          @if (item.path === 'facturas' && pendingInvoices()) {
+            <span matListItemMeta>
+              <span class="nav-badge">{{ pendingInvoices() }}</span>
+            </span>
+          }
+        </a>
+      }
+    </mat-nav-list>
+
+    <div class="sidebar__user">
+      <button type="button" class="user" [matMenuTriggerFor]="userMenu">
+        <span class="gb-avatar">{{ userInitials() }}</span>
+        <span class="user__text">
+          <span class="user__name">{{ auth.user()?.fullName }}</span>
+          <span class="user__role">{{ auth.user()?.role }}</span>
+        </span>
+      </button>
+      <mat-menu #userMenu="matMenu" yPosition="above">
+        <button mat-menu-item (click)="auth.logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <header class="topbar">
+      @if (isHandset()) {
+        <button matIconButton (click)="sidenav.toggle()" aria-label="Abrir menú">
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+
+      <nav class="breadcrumb" aria-label="Ruta">
+        <span>GastroBI</span>
+        <span>/</span>
+        <span class="breadcrumb__branch">{{ branchCtx.selected()?.name }}</span>
+        <span>/</span>
+        <span class="breadcrumb__current">{{ currentSection() }}</span>
+      </nav>
+
+      <span class="topbar__spacer"></span>
+
+      <button
+        matButton="outlined"
+        class="gb-button-neutral branch-button"
+        [matMenuTriggerFor]="branchMenu"
+        [disabled]="!branchCtx.branches().length"
+      >
+        Sucursal: {{ branchCtx.selected()?.name ?? '…' }}
+        <mat-icon iconPositionEnd>expand_more</mat-icon>
+      </button>
+      <mat-menu #branchMenu="matMenu" xPosition="before">
+        @for (branch of branchCtx.branches(); track branch.id) {
+          <button mat-menu-item (click)="branchCtx.select(branch)">
+            <mat-icon>{{ branch.id === branchCtx.selectedId() ? 'check' : 'store' }}</mat-icon>
+            <span>{{ branch.name }}</span>
+          </button>
+        }
+      </mat-menu>
+
+      <span class="gb-avatar">{{ userInitials() }}</span>
+    </header>
+
+    <main class="page">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
