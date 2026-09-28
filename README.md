@@ -66,7 +66,7 @@ Ejemplo: listar el inventario (`GET /api/inventory?branchId=`).
 1. **Modelo.** Agregar la interfaz en `core/models/inventory.models.ts`, con los mismos nombres de campo que el DTO de .NET (camelCase):
    ```ts
    export interface InventoryItem {
-     ingredientId: number;
+     ingredientId: string; // uid (UUID) del insumo
      name: string;
      unit: string;
      stock: number;
